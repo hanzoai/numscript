@@ -1,34 +1,76 @@
-# Numscript CLI
+# Numscript
 
-[![GitHub Release](https://img.shields.io/github/v/release/formancehq/numscript)](https://github.com/formancehq/numscript/releases)
-[![Go Reference](https://pkg.go.dev/badge/github.com/formancehq/numscript.svg)](https://pkg.go.dev/github.com/formancehq/numscript)
-[![Go](https://github.com/formancehq/numscript/actions/workflows/checks.yml/badge.svg)](https://github.com/formancehq/numscript/actions/workflows/checks.yml)
-[![codecov](https://codecov.io/gh/formancehq/numscript/graph/badge.svg?token=njjqGhFQ2p)](https://codecov.io/gh/formancehq/numscript)
+Domain-specific language for modeling financial transactions. Used by [Hanzo Ledger](https://github.com/hanzoai/ledger) for programmable money movement.
 
-Numscript is the DSL used to express financial transaction within the [Formance](https://www.formance.com/) ledger.
-You can try it in its [online playground](https://playground.numscript.org)
+## Features
 
-The CLI in this repo allows you to play with numscript locally, check if there are parsing or logic errors in your numscript files, and run the numscript language server
+- **Declarative Transactions** — Express complex multi-party transfers in readable syntax
+- **Percentage Splits** — Route funds to multiple destinations by percentage or fixed amount
+- **Source Ordering** — Define fallback funding sources with automatic overdraft prevention
+- **Variables** — Parameterize scripts for reuse across different amounts and accounts
+- **Type Safety** — Compile-time validation of account references and asset types
 
-The language server features include:
+## Examples
 
-- Diagnostics
-- Hover on values
-- Detect document symbols
-- Go to definition
+```numscript
+// Simple transfer
+send [USD/2 5000] (
+  source = @users:alice
+  destination = @users:bob
+)
 
-### Installation
+// Multi-source with fee split
+send [USD/2 10000] (
+  source = {
+    @users:alice
+    @users:alice:savings
+  }
+  destination = {
+    85% to @merchants:shop
+    10% to @platform:fees
+    5%  to @platform:reserve
+  }
+)
 
-You can install the `numscript` cli with one of the following ways:
-
-**Using curl**
-
-```sh
-curl -sSf https://raw.githubusercontent.com/formancehq/numscript/main/install.sh | bash
+// Parameterized script
+vars {
+  monetary $amount
+  account $sender
+  account $receiver
+}
+send $amount (
+  source = $sender
+  destination = $receiver
+)
 ```
 
-**Using golang toolchain**
+## Usage
 
-```sh
-go install github.com/formancehq/numscript/cmd/numscript@latest
+```bash
+# Install CLI
+go install github.com/hanzoai/numscript/cmd/numscript@latest
+
+# Parse and validate a script
+numscript check script.num
+
+# Format a script
+numscript fmt script.num
 ```
+
+## Go Library
+
+```go
+import "github.com/hanzoai/numscript"
+
+program, err := numscript.Parse(`
+  send [USD/2 1000] (
+    source = @world
+    destination = @users:001
+  )
+`)
+```
+
+## License
+
+MIT — see [LICENSE](LICENSE)
+
