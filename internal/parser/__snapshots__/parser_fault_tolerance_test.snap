@@ -1,0 +1,495 @@
+
+[TestFaultToleranceVarName - 1]
+parser.Program{
+    Flags: nil,
+    Vars:  &parser.VarDeclarations{
+        Range: parser.Range{
+            Start: parser.Position{},
+            End:   parser.Position{Character:21, Line:0},
+        },
+        Declarations: {
+            {
+                Range: parser.Range{
+                    Start: parser.Position{Character:7, Line:0},
+                    End:   parser.Position{Character:18, Line:0},
+                },
+                Name: (*parser.Variable)(nil),
+                Type: &parser.TypeDecl{
+                    Range: parser.Range{
+                        Start: parser.Position{Character:7, Line:0},
+                        End:   parser.Position{Character:15, Line:0},
+                    },
+                    Name: "monetary",
+                },
+                Origin: (*parser.ValueExpr)(nil),
+            },
+        },
+    },
+    Statements: nil,
+    Comments:   nil,
+}
+---
+
+[TestFaultToleranceSend - 1]
+parser.Program{
+    Flags:      nil,
+    Vars:       (*parser.VarDeclarations)(nil),
+    Statements: {
+        &parser.SendStatement{
+            Range: parser.Range{
+                Start: parser.Position{},
+                End:   parser.Position{Character:4, Line:0},
+            },
+            SentValue:   nil,
+            Source:      nil,
+            Destination: nil,
+        },
+    },
+    Comments: nil,
+}
+---
+
+[TestFaultToleranceMonetary - 1]
+parser.Program{
+    Flags:      nil,
+    Vars:       (*parser.VarDeclarations)(nil),
+    Statements: {
+        &parser.SendStatement{
+            Range: parser.Range{
+                Start: parser.Position{},
+                End:   parser.Position{Character:11, Line:0},
+            },
+            SentValue:   nil,
+            Source:      nil,
+            Destination: nil,
+        },
+    },
+    Comments: nil,
+}
+---
+
+[TestFaultToleranceNoAddr - 1]
+parser.Program{
+    Flags:      nil,
+    Vars:       (*parser.VarDeclarations)(nil),
+    Statements: {
+        &parser.SendStatement{
+            Range: parser.Range{
+                Start: parser.Position{},
+                End:   parser.Position{Character:17, Line:4},
+            },
+            SentValue: &parser.SentValueLiteral{
+                Range: parser.Range{
+                    Start: parser.Position{Character:6, Line:0},
+                    End:   parser.Position{Character:17, Line:4},
+                },
+                Monetary: nil,
+            },
+            Source:      nil,
+            Destination: nil,
+        },
+    },
+    Comments: nil,
+}
+---
+
+[TestFaultToleranceInvalidDest - 1]
+parser.Program{
+    Flags:      nil,
+    Vars:       (*parser.VarDeclarations)(nil),
+    Statements: {
+        &parser.SendStatement{
+            Range: parser.Range{
+                Start: parser.Position{},
+                End:   parser.Position{Character:1, Line:3},
+            },
+            SentValue: &parser.SentValueLiteral{
+                Range: parser.Range{
+                    Start: parser.Position{Character:5, Line:0},
+                    End:   parser.Position{Character:14, Line:0},
+                },
+                Monetary: &parser.MonetaryLiteral{
+                    Range: parser.Range{
+                        Start: parser.Position{Character:5, Line:0},
+                        End:   parser.Position{Character:14, Line:0},
+                    },
+                    Asset: &parser.AssetLiteral{
+                        Range: parser.Range{
+                            Start: parser.Position{Character:6, Line:0},
+                            End:   parser.Position{Character:10, Line:0},
+                        },
+                        Asset: "COIN",
+                    },
+                    Amount: &parser.NumberLiteral{
+                        Range: parser.Range{
+                            Start: parser.Position{Character:11, Line:0},
+                            End:   parser.Position{Character:13, Line:0},
+                        },
+                        Number: &big.Int{
+                            neg: false,
+                            abs: {0xa},
+                        },
+                    },
+                },
+            },
+            Source: &parser.SourceAccount{
+                Color:     nil,
+                ValueExpr: &parser.AccountInterpLiteral{
+                    Range: parser.Range{
+                        Start: parser.Position{Character:13, Line:1},
+                        End:   parser.Position{Character:15, Line:1},
+                    },
+                    Parts: {
+                        parser.AccountTextPart{Name:"a"},
+                    },
+                },
+            },
+            Destination: nil,
+        },
+    },
+    Comments: nil,
+}
+---
+
+[TestFaultToleranceInvalidSrcTk - 1]
+parser.Program{
+    Flags:      nil,
+    Vars:       (*parser.VarDeclarations)(nil),
+    Statements: {
+        &parser.SendStatement{
+            Range: parser.Range{
+                Start: parser.Position{},
+                End:   parser.Position{Character:1, Line:3},
+            },
+            SentValue: &parser.SentValueLiteral{
+                Range: parser.Range{
+                    Start: parser.Position{Character:5, Line:0},
+                    End:   parser.Position{Character:14, Line:0},
+                },
+                Monetary: &parser.MonetaryLiteral{
+                    Range: parser.Range{
+                        Start: parser.Position{Character:5, Line:0},
+                        End:   parser.Position{Character:14, Line:0},
+                    },
+                    Asset: &parser.AssetLiteral{
+                        Range: parser.Range{
+                            Start: parser.Position{Character:6, Line:0},
+                            End:   parser.Position{Character:10, Line:0},
+                        },
+                        Asset: "COIN",
+                    },
+                    Amount: &parser.NumberLiteral{
+                        Range: parser.Range{
+                            Start: parser.Position{Character:11, Line:0},
+                            End:   parser.Position{Character:13, Line:0},
+                        },
+                        Number: &big.Int{
+                            neg: false,
+                            abs: {0xa},
+                        },
+                    },
+                },
+            },
+            Source: &parser.SourceCapped{
+                Range: parser.Range{
+                    Start: parser.Position{Character:13, Line:1},
+                    End:   parser.Position{Character:16, Line:1},
+                },
+                From: nil,
+                Cap:  nil,
+            },
+            Destination: &parser.DestinationAccount{
+                ValueExpr: &parser.AccountInterpLiteral{
+                    Range: parser.Range{
+                        Start: parser.Position{Character:18, Line:2},
+                        End:   parser.Position{Character:20, Line:2},
+                    },
+                    Parts: {
+                        parser.AccountTextPart{Name:"d"},
+                    },
+                },
+            },
+        },
+    },
+    Comments: nil,
+}
+---
+
+[TestFaultToleranceTrailingComma - 1]
+parser.Program{
+    Flags:      nil,
+    Vars:       (*parser.VarDeclarations)(nil),
+    Statements: {
+        &parser.FnCall{
+            Range: parser.Range{
+                Start: parser.Position{},
+                End:   parser.Position{Character:16, Line:0},
+            },
+            Caller: &parser.FnCallIdentifier{
+                Range: parser.Range{
+                    Start: parser.Position{},
+                    End:   parser.Position{Character:11, Line:0},
+                },
+                Name: "set_tx_meta",
+            },
+            Args: {
+                &parser.NumberLiteral{
+                    Range: parser.Range{
+                        Start: parser.Position{Character:12, Line:0},
+                        End:   parser.Position{Character:13, Line:0},
+                    },
+                    Number: &big.Int{
+                        neg: false,
+                        abs: {0x1},
+                    },
+                },
+                nil,
+            },
+        },
+    },
+    Comments: nil,
+}
+---
+
+[TestFaultToleranceDestinationNoRemainingMispelledFrom - 1]
+parser.Program{
+    Flags:      nil,
+    Vars:       (*parser.VarDeclarations)(nil),
+    Statements: {
+        &parser.SendStatement{
+            Range: parser.Range{
+                Start: parser.Position{},
+                End:   parser.Position{Character:2, Line:5},
+            },
+            SentValue: &parser.SentValueLiteral{
+                Range: parser.Range{
+                    Start: parser.Position{Character:5, Line:0},
+                    End:   parser.Position{Character:14, Line:0},
+                },
+                Monetary: &parser.MonetaryLiteral{
+                    Range: parser.Range{
+                        Start: parser.Position{Character:5, Line:0},
+                        End:   parser.Position{Character:14, Line:0},
+                    },
+                    Asset: &parser.AssetLiteral{
+                        Range: parser.Range{
+                            Start: parser.Position{Character:6, Line:0},
+                            End:   parser.Position{Character:10, Line:0},
+                        },
+                        Asset: "COIN",
+                    },
+                    Amount: &parser.NumberLiteral{
+                        Range: parser.Range{
+                            Start: parser.Position{Character:11, Line:0},
+                            End:   parser.Position{Character:13, Line:0},
+                        },
+                        Number: &big.Int{
+                            neg: false,
+                            abs: {0xa},
+                        },
+                    },
+                },
+            },
+            Source: &parser.SourceAccount{
+                Color:     nil,
+                ValueExpr: &parser.AccountInterpLiteral{
+                    Range: parser.Range{
+                        Start: parser.Position{Character:11, Line:1},
+                        End:   parser.Position{Character:13, Line:1},
+                    },
+                    Parts: {
+                        parser.AccountTextPart{Name:"a"},
+                    },
+                },
+            },
+            Destination: &parser.DestinationInorder{
+                Range: parser.Range{
+                    Start: parser.Position{Character:16, Line:2},
+                    End:   parser.Position{Character:3, Line:4},
+                },
+                Clauses: {
+                    {
+                        Range: parser.Range{
+                            Start: parser.Position{Character:3, Line:3},
+                            End:   parser.Position{Character:3, Line:4},
+                        },
+                        Cap: &parser.MonetaryLiteral{
+                            Range: parser.Range{
+                                Start: parser.Position{Character:7, Line:3},
+                                End:   parser.Position{Character:16, Line:3},
+                            },
+                            Asset: &parser.AssetLiteral{
+                                Range: parser.Range{
+                                    Start: parser.Position{Character:8, Line:3},
+                                    End:   parser.Position{Character:12, Line:3},
+                                },
+                                Asset: "COIN",
+                            },
+                            Amount: &parser.NumberLiteral{
+                                Range: parser.Range{
+                                    Start: parser.Position{Character:13, Line:3},
+                                    End:   parser.Position{Character:15, Line:3},
+                                },
+                                Number: &big.Int{
+                                    neg: false,
+                                    abs: {0xa},
+                                },
+                            },
+                        },
+                        To: nil,
+                    },
+                },
+                Remaining: nil,
+            },
+        },
+    },
+    Comments: nil,
+}
+---
+
+[TestFaultToleranceIncompleteOrigin - 1]
+parser.Program{
+    Flags: nil,
+    Vars:  &parser.VarDeclarations{
+        Range: parser.Range{
+            Start: parser.Position{Character:0, Line:1},
+            End:   parser.Position{Character:1, Line:3},
+        },
+        Declarations: {
+            {
+                Range: parser.Range{
+                    Start: parser.Position{Character:1, Line:2},
+                    End:   parser.Position{Character:11, Line:2},
+                },
+                Name: &parser.Variable{
+                    Range: parser.Range{
+                        Start: parser.Position{Character:7, Line:2},
+                        End:   parser.Position{Character:9, Line:2},
+                    },
+                    Name: "a",
+                },
+                Type: &parser.TypeDecl{
+                    Range: parser.Range{
+                        Start: parser.Position{Character:1, Line:2},
+                        End:   parser.Position{Character:6, Line:2},
+                    },
+                    Name: "asset",
+                },
+                Origin: &nil,
+            },
+        },
+    },
+    Statements: nil,
+    Comments:   nil,
+}
+---
+
+[TestFaultToleranceIncompleteSave - 1]
+parser.Program{
+    Flags:      nil,
+    Vars:       (*parser.VarDeclarations)(nil),
+    Statements: {
+        &parser.SaveStatement{
+            Range: parser.Range{
+                Start: parser.Position{Character:0, Line:1},
+                End:   parser.Position{Character:4, Line:1},
+            },
+            SentValue: nil,
+            Amount:    nil,
+        },
+    },
+    Comments: nil,
+}
+---
+
+[TestFaultToleranceIncompleteSave2 - 1]
+parser.Program{
+    Flags:      nil,
+    Vars:       (*parser.VarDeclarations)(nil),
+    Statements: {
+        &parser.SaveStatement{
+            Range: parser.Range{
+                Start: parser.Position{Character:0, Line:1},
+                End:   parser.Position{Character:14, Line:1},
+            },
+            SentValue: &parser.SentValueLiteral{
+                Range: parser.Range{
+                    Start: parser.Position{Character:5, Line:1},
+                    End:   parser.Position{Character:14, Line:1},
+                },
+                Monetary: &parser.MonetaryLiteral{
+                    Range: parser.Range{
+                        Start: parser.Position{Character:5, Line:1},
+                        End:   parser.Position{Character:14, Line:1},
+                    },
+                    Asset: &parser.AssetLiteral{
+                        Range: parser.Range{
+                            Start: parser.Position{Character:6, Line:1},
+                            End:   parser.Position{Character:10, Line:1},
+                        },
+                        Asset: "COIN",
+                    },
+                    Amount: &parser.NumberLiteral{
+                        Range: parser.Range{
+                            Start: parser.Position{Character:11, Line:1},
+                            End:   parser.Position{Character:13, Line:1},
+                        },
+                        Number: &big.Int{
+                            neg: false,
+                            abs: {0xa},
+                        },
+                    },
+                },
+            },
+            Amount: nil,
+        },
+    },
+    Comments: nil,
+}
+---
+
+[TestFaultToleranceIncompleteSave3 - 1]
+parser.Program{
+    Flags:      nil,
+    Vars:       (*parser.VarDeclarations)(nil),
+    Statements: {
+        &parser.SaveStatement{
+            Range: parser.Range{
+                Start: parser.Position{Character:0, Line:1},
+                End:   parser.Position{Character:19, Line:1},
+            },
+            SentValue: &parser.SentValueLiteral{
+                Range: parser.Range{
+                    Start: parser.Position{Character:5, Line:1},
+                    End:   parser.Position{Character:14, Line:1},
+                },
+                Monetary: &parser.MonetaryLiteral{
+                    Range: parser.Range{
+                        Start: parser.Position{Character:5, Line:1},
+                        End:   parser.Position{Character:14, Line:1},
+                    },
+                    Asset: &parser.AssetLiteral{
+                        Range: parser.Range{
+                            Start: parser.Position{Character:6, Line:1},
+                            End:   parser.Position{Character:10, Line:1},
+                        },
+                        Asset: "COIN",
+                    },
+                    Amount: &parser.NumberLiteral{
+                        Range: parser.Range{
+                            Start: parser.Position{Character:11, Line:1},
+                            End:   parser.Position{Character:13, Line:1},
+                        },
+                        Number: &big.Int{
+                            neg: false,
+                            abs: {0xa},
+                        },
+                    },
+                },
+            },
+            Amount: nil,
+        },
+    },
+    Comments: nil,
+}
+---
