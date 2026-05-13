@@ -1,6 +1,6 @@
 module github.com/formancehq/numscript
 
-go 1.26.1
+go 1.26.3
 
 require (
 	github.com/antlr4-go/antlr/v4 v4.13.1
