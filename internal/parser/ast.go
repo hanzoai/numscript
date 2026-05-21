@@ -65,7 +65,7 @@ type (
 	PercentageLiteral struct {
 		Range
 		Amount         *big.Int
-		FloatingDigits uint16
+		FloatingDigits int
 	}
 
 	Variable struct {
@@ -127,7 +127,7 @@ func (expr AccountInterpLiteral) String() string {
 			parts = append(parts, "$"+part.Name)
 		}
 	}
-	return strings.Join(parts, ":")
+	return strings.Join(parts, "")
 }
 
 // Source exprs
@@ -147,8 +147,9 @@ func (*SourceWithScaling) source() {}
 
 type (
 	SourceAccount struct {
-		Color ValueExpr
-		ValueExpr
+		Range
+		Color     ValueExpr
+		ValueExpr ValueExpr
 	}
 
 	SourceInorder struct {
@@ -318,7 +319,7 @@ type SendStatement struct {
 type SaveStatement struct {
 	Range
 	SentValue SentValue
-	Amount    ValueExpr
+	Account   ValueExpr
 }
 
 type TypeDecl struct {

@@ -194,6 +194,7 @@ func parseSource(sourceCtx antlrParser.ISourceContext) Source {
 	switch sourceCtx := sourceCtx.(type) {
 	case *antlrParser.SrcAccountContext:
 		return &SourceAccount{
+			Range:     range_,
 			Color:     parseColorConstraint(sourceCtx.ColorConstraint()),
 			ValueExpr: parseValueExpr(sourceCtx.ValueExpr()),
 		}
@@ -273,7 +274,7 @@ func parseSource(sourceCtx antlrParser.ISourceContext) Source {
 }
 
 // Returns (a, b) representing a/(10^b)
-func ParsePercentageRatio(source string) (*big.Int, uint16, error) {
+func ParsePercentageRatio(source string) (*big.Int, int, error) {
 	source = strings.TrimSuffix(source, "%")
 
 	scale := 0
@@ -287,7 +288,7 @@ func ParsePercentageRatio(source string) (*big.Int, uint16, error) {
 		return nil, 0, fmt.Errorf("unexpected invalid string literal: %s", source)
 	}
 
-	return num, uint16(scale), nil
+	return num, scale, nil
 }
 
 func parsePercentageRatio(source string, range_ Range) *PercentageLiteral {
@@ -341,15 +342,21 @@ func parseValueExpr(valueExprCtx antlrParser.IValueExprContext) ValueExpr {
 		litRng := ctxToRange(valueExprCtx)
 
 		var parts []AccountNamePart
-		for _, accLit := range valueExprCtx.AllAccountLiteralPart() {
-			varPartText := accLit.GetText()
+		for _, accLit := range valueExprCtx.GetChildren() {
 			switch accLit := accLit.(type) {
 			case *antlrParser.AccountTextPartContext:
+				varPartText := accLit.GetText()
 				parts = append(parts, AccountTextPart{Name: varPartText})
 			case *antlrParser.AccountVarPartContext:
 				v := parseVarLiteral(accLit.VARIABLE_NAME_ACC().GetSymbol())
 				parts = append(parts, v)
+
+			case antlr.TerminalNode:
+				if accLit.GetSymbol().GetTokenType() == antlrParser.NumscriptParserCOLON {
+					parts = append(parts, AccountTextPart{Name: ":"})
+				}
 			}
+
 		}
 
 		return &AccountInterpLiteral{
@@ -563,7 +570,7 @@ func parseSaveStatement(saveCtx *antlrParser.SaveStatementContext) *SaveStatemen
 	return &SaveStatement{
 		Range:     ctxToRange(saveCtx),
 		SentValue: parseSentValue(saveCtx.SentValue()),
-		Amount:    parseValueExpr(saveCtx.ValueExpr()),
+		Account:    parseValueExpr(saveCtx.ValueExpr()),
 	}
 }
 
