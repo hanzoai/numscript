@@ -16,7 +16,7 @@ jobs:
   PR:
     if: github.event_name == 'pull_request'
     name: Check PR Title
-    runs-on: ubuntu-latest
+    runs-on: hanzo-build-linux-amd64
     permissions:
       statuses: write
     steps:
