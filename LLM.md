@@ -1,4 +1,4 @@
-# LLM.md - Hanzo Numscript
+# Hanzo Numscript
 
 ## Overview
 Go module: github.com/formancehq/numscript
