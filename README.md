@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/hero.svg" alt="numscript" width="880"></p>
+
 # Numscript
 
 Domain-specific language for modeling financial transactions. Used by [Hanzo Ledger](https://github.com/hanzoai/ledger) for programmable money movement.
