@@ -1,8 +1,8 @@
 package interpreter
 
 import (
-	"github.com/formancehq/numscript/internal/parser"
-	"github.com/formancehq/numscript/internal/utils"
+	"github.com/hanzoai/numscript/internal/parser"
+	"github.com/hanzoai/numscript/internal/utils"
 )
 
 func setTxMeta(st *programState, r parser.Range, args []Value) InterpreterError {

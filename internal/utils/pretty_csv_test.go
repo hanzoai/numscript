@@ -3,7 +3,7 @@ package utils_test
 import (
 	"testing"
 
-	"github.com/formancehq/numscript/internal/utils"
+	"github.com/hanzoai/numscript/internal/utils"
 	"github.com/gkampitakis/go-snaps/snaps"
 )
 

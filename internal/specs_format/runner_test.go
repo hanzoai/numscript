@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/formancehq/numscript/internal/specs_format"
+	"github.com/hanzoai/numscript/internal/specs_format"
 	"github.com/gkampitakis/go-snaps/snaps"
 	"github.com/stretchr/testify/require"
 )

@@ -3,9 +3,9 @@ package analysis_test
 import (
 	"testing"
 
-	"github.com/formancehq/numscript/internal/analysis"
-	"github.com/formancehq/numscript/internal/flags"
-	"github.com/formancehq/numscript/internal/parser"
+	"github.com/hanzoai/numscript/internal/analysis"
+	"github.com/hanzoai/numscript/internal/flags"
+	"github.com/hanzoai/numscript/internal/parser"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

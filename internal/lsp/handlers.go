@@ -6,10 +6,10 @@ import (
 	"os"
 	"slices"
 
-	"github.com/formancehq/numscript/internal/analysis"
-	"github.com/formancehq/numscript/internal/jsonrpc2"
-	"github.com/formancehq/numscript/internal/parser"
-	"github.com/formancehq/numscript/internal/utils"
+	"github.com/hanzoai/numscript/internal/analysis"
+	"github.com/hanzoai/numscript/internal/jsonrpc2"
+	"github.com/hanzoai/numscript/internal/parser"
+	"github.com/hanzoai/numscript/internal/utils"
 	"go.lsp.dev/protocol"
 )
 

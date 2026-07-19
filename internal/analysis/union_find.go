@@ -3,7 +3,7 @@ package analysis
 import (
 	"fmt"
 
-	"github.com/formancehq/numscript/internal/utils"
+	"github.com/hanzoai/numscript/internal/utils"
 )
 
 type Type interface {
