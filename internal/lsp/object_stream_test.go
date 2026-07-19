@@ -7,8 +7,8 @@ import (
 	"io"
 	"testing"
 
-	"github.com/formancehq/numscript/internal/jsonrpc2"
-	"github.com/formancehq/numscript/internal/lsp"
+	"github.com/hanzoai/numscript/internal/jsonrpc2"
+	"github.com/hanzoai/numscript/internal/lsp"
 	"github.com/stretchr/testify/require"
 )
 

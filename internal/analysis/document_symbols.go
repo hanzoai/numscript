@@ -3,7 +3,7 @@ package analysis
 import (
 	"slices"
 
-	"github.com/formancehq/numscript/internal/parser"
+	"github.com/hanzoai/numscript/internal/parser"
 )
 
 type DocumentSymbolKind = float64

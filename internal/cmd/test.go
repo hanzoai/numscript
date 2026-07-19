@@ -3,7 +3,7 @@ package cmd
 import (
 	"os"
 
-	"github.com/formancehq/numscript/internal/specs_format"
+	"github.com/hanzoai/numscript/internal/specs_format"
 	"github.com/spf13/cobra"
 )
 

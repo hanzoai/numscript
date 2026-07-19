@@ -5,8 +5,8 @@ import (
 	"math/big"
 	"strings"
 
-	antlrParser "github.com/formancehq/numscript/internal/parser/antlrParser"
-	"github.com/formancehq/numscript/internal/utils"
+	antlrParser "github.com/hanzoai/numscript/internal/parser/antlrParser"
+	"github.com/hanzoai/numscript/internal/utils"
 
 	"github.com/antlr4-go/antlr/v4"
 )

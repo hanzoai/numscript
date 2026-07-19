@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/formancehq/numscript/internal/jsonrpc2"
+	"github.com/hanzoai/numscript/internal/jsonrpc2"
 )
 
 type LsObjectStream struct {

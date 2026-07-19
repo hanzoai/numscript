@@ -6,9 +6,9 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/formancehq/numscript/internal/analysis"
-	"github.com/formancehq/numscript/internal/interpreter"
-	"github.com/formancehq/numscript/internal/parser"
+	"github.com/hanzoai/numscript/internal/analysis"
+	"github.com/hanzoai/numscript/internal/interpreter"
+	"github.com/hanzoai/numscript/internal/parser"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 )

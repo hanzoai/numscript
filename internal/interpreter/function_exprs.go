@@ -3,8 +3,8 @@ package interpreter
 import (
 	"math/big"
 
-	"github.com/formancehq/numscript/internal/flags"
-	"github.com/formancehq/numscript/internal/parser"
+	"github.com/hanzoai/numscript/internal/flags"
+	"github.com/hanzoai/numscript/internal/parser"
 )
 
 func overdraft(

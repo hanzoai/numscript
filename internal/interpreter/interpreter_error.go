@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/formancehq/numscript/internal/parser"
+	"github.com/hanzoai/numscript/internal/parser"
 )
 
 type InternalError struct {

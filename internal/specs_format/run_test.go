@@ -5,9 +5,9 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/formancehq/numscript/internal/interpreter"
-	"github.com/formancehq/numscript/internal/parser"
-	"github.com/formancehq/numscript/internal/specs_format"
+	"github.com/hanzoai/numscript/internal/interpreter"
+	"github.com/hanzoai/numscript/internal/parser"
+	"github.com/hanzoai/numscript/internal/specs_format"
 	"github.com/stretchr/testify/require"
 )
 

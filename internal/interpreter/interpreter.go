@@ -8,10 +8,10 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/formancehq/numscript/internal/analysis"
-	"github.com/formancehq/numscript/internal/flags"
-	"github.com/formancehq/numscript/internal/parser"
-	"github.com/formancehq/numscript/internal/utils"
+	"github.com/hanzoai/numscript/internal/analysis"
+	"github.com/hanzoai/numscript/internal/flags"
+	"github.com/hanzoai/numscript/internal/parser"
+	"github.com/hanzoai/numscript/internal/utils"
 )
 
 type VariablesMap map[string]string

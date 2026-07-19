@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/formancehq/numscript/internal/utils"
+	"github.com/hanzoai/numscript/internal/utils"
 )
 
 func assetToScaledAsset(asset string) string {

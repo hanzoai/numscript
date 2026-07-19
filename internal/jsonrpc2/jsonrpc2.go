@@ -8,7 +8,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/formancehq/numscript/internal/utils"
+	"github.com/hanzoai/numscript/internal/utils"
 )
 
 type MessageStream interface {

@@ -5,7 +5,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/formancehq/numscript/internal/ansi"
+	"github.com/hanzoai/numscript/internal/ansi"
 )
 
 // Fails if the header is shorter than any of the rows
