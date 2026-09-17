@@ -7,8 +7,8 @@ import (
 
 func setTxMeta(st *programState, r parser.Range, args []Value) InterpreterError {
 	p := NewArgsParser(args)
-	key := parseArg(p, r, expectString)
-	meta := parseArg(p, r, expectAnything)
+	key := p.parseArg(r, expectString)
+	meta := p.parseArg(r, expectAnything)
 	err := p.parse()
 	if err != nil {
 		return err
@@ -20,9 +20,9 @@ func setTxMeta(st *programState, r parser.Range, args []Value) InterpreterError 
 
 func setAccountMeta(st *programState, r parser.Range, args []Value) InterpreterError {
 	p := NewArgsParser(args)
-	account := parseArg(p, r, expectAccount)
-	key := parseArg(p, r, expectString)
-	meta := parseArg(p, r, expectAnything)
+	account := p.parseArg(r, expectAccount)
+	key := p.parseArg(r, expectString)
+	meta := p.parseArg(r, expectAnything)
 	err := p.parse()
 	if err != nil {
 		return err

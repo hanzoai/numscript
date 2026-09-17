@@ -19,8 +19,8 @@ func overdraft(
 
 	// TODO more precise args range location
 	p := NewArgsParser(args)
-	account := parseArg(p, r, expectAccount)
-	asset := parseArg(p, r, expectAsset)
+	account := p.parseArg(r, expectAccount)
+	asset := p.parseArg(r, expectAsset)
 	err = p.parse()
 	if err != nil {
 		return nil, err
@@ -53,8 +53,8 @@ func meta(
 ) (string, InterpreterError) {
 	// TODO more precise location
 	p := NewArgsParser(args)
-	account := parseArg(p, rng, expectAccount)
-	key := parseArg(p, rng, expectString)
+	account := p.parseArg(rng, expectAccount)
+	key := p.parseArg(rng, expectString)
 	err := p.parse()
 	if err != nil {
 		return "", err
@@ -86,8 +86,8 @@ func balance(
 ) (*Monetary, InterpreterError) {
 	// TODO more precise args range location
 	p := NewArgsParser(args)
-	account := parseArg(p, r, expectAccount)
-	asset := parseArg(p, r, expectAsset)
+	account := p.parseArg(r, expectAccount)
+	asset := p.parseArg(r, expectAsset)
 	err := p.parse()
 	if err != nil {
 		return nil, err
@@ -127,7 +127,7 @@ func getAsset(
 	}
 
 	p := NewArgsParser(args)
-	mon := parseArg(p, r, expectMonetary)
+	mon := p.parseArg(r, expectMonetary)
 	err = p.parse()
 	if err != nil {
 		return nil, err
@@ -147,7 +147,7 @@ func getAmount(
 	}
 
 	p := NewArgsParser(args)
-	mon := parseArg(p, r, expectMonetary)
+	mon := p.parseArg(r, expectMonetary)
 	err = p.parse()
 	if err != nil {
 		return nil, err

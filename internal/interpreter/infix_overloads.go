@@ -15,7 +15,7 @@ var _ opAdd = (*Monetary)(nil)
 
 func (m MonetaryInt) evalAdd(st *programState, other parser.ValueExpr) (Value, InterpreterError) {
 	m1 := big.Int(m)
-	m2, err := evaluateExprAs(st, other, expectNumber)
+	m2, err := st.evaluateExprAs(other, expectNumber)
 	if err != nil {
 		return nil, err
 	}
@@ -25,7 +25,7 @@ func (m MonetaryInt) evalAdd(st *programState, other parser.ValueExpr) (Value, I
 }
 
 func (m Monetary) evalAdd(st *programState, other parser.ValueExpr) (Value, InterpreterError) {
-	m2, err := evaluateExprAs(st, other, expectMonetary)
+	m2, err := st.evaluateExprAs(other, expectMonetary)
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ var _ opSub = (*Monetary)(nil)
 
 func (m MonetaryInt) evalSub(st *programState, other parser.ValueExpr) (Value, InterpreterError) {
 	m1 := big.Int(m)
-	m2, err := evaluateExprAs(st, other, expectNumber)
+	m2, err := st.evaluateExprAs(other, expectNumber)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func (m MonetaryInt) evalSub(st *programState, other parser.ValueExpr) (Value, I
 }
 
 func (m Monetary) evalSub(st *programState, other parser.ValueExpr) (Value, InterpreterError) {
-	m2, err := evaluateExprAs(st, other, expectMonetary)
+	m2, err := st.evaluateExprAs(other, expectMonetary)
 	if err != nil {
 		return nil, err
 	}

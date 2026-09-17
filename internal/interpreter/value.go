@@ -3,6 +3,7 @@ package interpreter
 import (
 	"fmt"
 	"math/big"
+	"strings"
 
 	"github.com/formancehq/numscript/internal/analysis"
 	"github.com/formancehq/numscript/internal/parser"
@@ -191,18 +192,18 @@ func expectOneOf[T any](combinators ...func(v Value, r parser.Range) (*T, Interp
 		}
 
 		// e.g. typeErr.map(e => e.Expected).join("|")
-		expected := ""
+		var expected strings.Builder
 		for index, typeErr := range errs {
 			if index != 0 {
-				expected += "|"
+				expected.WriteString("|")
 			}
-			expected += typeErr.Expected
+			expected.WriteString(typeErr.Expected)
 		}
 
 		return nil, TypeError{
 			Range:    r,
 			Value:    v,
-			Expected: expected,
+			Expected: expected.String(),
 		}
 	}
 }

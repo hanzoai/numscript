@@ -131,10 +131,8 @@ func (c *TestClient) OpenFile(uri string, text string) (protocol.TextDocumentIde
 
 func (c *TestClient) Hover(doc protocol.TextDocumentIdentifier, position parser.Position) (json.RawMessage, *jsonrpc2.ResponseError) {
 	return c.conn.SendRequest("textDocument/hover", protocol.HoverParams{
-		TextDocumentPositionParams: protocol.TextDocumentPositionParams{
-			TextDocument: doc,
-			Position:     lsp.ParserToLspPosition(position),
-		},
+		TextDocument: doc,
+		Position:     lsp.ParserToLspPosition(position),
 	})
 }
 
@@ -146,10 +144,8 @@ func (c *TestClient) GetSymbols(doc protocol.TextDocumentIdentifier) (json.RawMe
 
 func (c *TestClient) GotoDefinition(doc protocol.TextDocumentIdentifier, position parser.Position) (json.RawMessage, *jsonrpc2.ResponseError) {
 	return c.conn.SendRequest("textDocument/definition", protocol.DefinitionParams{
-		TextDocumentPositionParams: protocol.TextDocumentPositionParams{
-			TextDocument: doc,
-			Position:     lsp.ParserToLspPosition(position),
-		},
+		TextDocument: doc,
+		Position:     lsp.ParserToLspPosition(position),
 	})
 }
 

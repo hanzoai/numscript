@@ -1,6 +1,8 @@
 package interpreter
 
 import (
+	"maps"
+
 	"github.com/formancehq/numscript/internal/utils"
 )
 
@@ -29,9 +31,7 @@ func (m AccountsMetadata) Merge(update AccountsMetadata) {
 			return AccountMetadata{}
 		})
 
-		for curr, amt := range accBalances {
-			cachedAcc[curr] = amt
-		}
+		maps.Copy(cachedAcc, accBalances)
 	}
 }
 

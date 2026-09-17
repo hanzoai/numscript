@@ -2,6 +2,7 @@ package specs_format
 
 import (
 	"context"
+	"maps"
 	"math/big"
 	"reflect"
 	"slices"
@@ -251,12 +252,8 @@ func Check(program parser.Program, specs Specs) (SpecsResult, interpreter.Interp
 
 func mergeVars(v1 interpreter.VariablesMap, v2 interpreter.VariablesMap) interpreter.VariablesMap {
 	out := interpreter.VariablesMap{}
-	for k, v := range v1 {
-		out[k] = v
-	}
-	for k, v := range v2 {
-		out[k] = v
-	}
+	maps.Copy(out, v1)
+	maps.Copy(out, v2)
 	return out
 }
 

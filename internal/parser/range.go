@@ -79,28 +79,28 @@ func (r Range) ShowOnSource(source string) string {
 		return digitPadding + separator + leftWs + errorIndicator
 	}
 
-	buf := ""
+	var buf strings.Builder
 	for lineOffset, line := range errorLines {
 		// Separate previous result with a newline
 		if lineOffset != 0 {
-			buf += "\n"
+			buf.WriteString("\n")
 		}
 		srcLine := r.Start.Line + lineOffset
 
 		if srcLine != 0 && lineOffset == 0 {
-			buf += showLine(srcLine-1, lines[srcLine-1])
+			buf.WriteString(showLine(srcLine-1, lines[srcLine-1]))
 		}
 
-		buf += showLine(srcLine, line)
-		buf += showError(lineOffset, line)
+		buf.WriteString(showLine(srcLine, line))
+		buf.WriteString(showError(lineOffset, line))
 
 		if srcLine != len(lines)-1 && lineOffset == len(errorLines)-1 {
-			buf += "\n" + showLine(srcLine+1, lines[srcLine+1])
+			buf.WriteString("\n" + showLine(srcLine+1, lines[srcLine+1]))
 		}
 
 	}
 
-	return buf
+	return buf.String()
 }
 
 // Those functions are mostly used as test utilities

@@ -14,7 +14,7 @@ func NewArgsParser(args []Value) *argsParser {
 	}
 }
 
-func parseArg[T any](p *argsParser, r parser.Range, expect func(Value, parser.Range) (*T, InterpreterError)) *T {
+func (p *argsParser) parseArg[T any](r parser.Range, expect func(Value, parser.Range) (*T, InterpreterError)) *T {
 	index := p.parsedArgsCount
 	p.parsedArgsCount++
 

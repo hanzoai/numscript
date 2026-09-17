@@ -27,7 +27,7 @@ func (st *programState) findBalancesQueriesInStatement(statement parser.Statemen
 		//
 		// this would mean that the "save" statement was not needed in the first place,
 		// so preventing this query would hardly be an useful optimization
-		account, err := evaluateExprAs(st, statement.Account, expectAccount)
+		account, err := st.evaluateExprAs(statement.Account, expectAccount)
 		if err != nil {
 			return err
 		}
@@ -85,12 +85,12 @@ func (st *programState) runBalancesQuery() error {
 func (st *programState) findBalancesQueries(source parser.Source) InterpreterError {
 	switch source := source.(type) {
 	case *parser.SourceAccount:
-		account, err := evaluateExprAs(st, source.ValueExpr, expectAccount)
+		account, err := st.evaluateExprAs(source.ValueExpr, expectAccount)
 		if err != nil {
 			return err
 		}
 
-		color, err := evaluateOptExprAs(st, source.Color, expectString)
+		color, err := st.evaluateOptExprAs(source.Color, expectString)
 		if err != nil {
 			return err
 		}
@@ -99,13 +99,13 @@ func (st *programState) findBalancesQueries(source parser.Source) InterpreterErr
 		return nil
 
 	case *parser.SourceWithScaling:
-		account, err := evaluateExprAs(st, source.Address, expectAccount)
+		account, err := st.evaluateExprAs(source.Address, expectAccount)
 		if err != nil {
 			return err
 		}
 		// NOTE we don't query the swap account's balance
 
-		color, err := evaluateOptExprAs(st, source.Color, expectString)
+		color, err := st.evaluateOptExprAs(source.Color, expectString)
 		if err != nil {
 			return err
 		}
@@ -119,11 +119,11 @@ func (st *programState) findBalancesQueries(source parser.Source) InterpreterErr
 			return nil
 		}
 
-		account, err := evaluateExprAs(st, source.Address, expectAccount)
+		account, err := st.evaluateExprAs(source.Address, expectAccount)
 		if err != nil {
 			return err
 		}
-		color, err := evaluateOptExprAs(st, source.Color, expectString)
+		color, err := st.evaluateOptExprAs(source.Color, expectString)
 		if err != nil {
 			return err
 		}

@@ -22,7 +22,7 @@ type notificationHandler func(raw json.RawMessage)
 
 type Conn struct {
 	listenErr            chan error
-	currentId            int64
+	currentId            atomic.Int64
 	opened               bool
 	stream               MessageStream
 	requestsHandlers     map[string]requestHandler
@@ -177,7 +177,7 @@ func (s *Conn) SendRequest(method string, params any) (json.RawMessage, *Respons
 		panic(err)
 	}
 
-	freshId := NewIntId(atomic.AddInt64(&s.currentId, 1))
+	freshId := NewIntId(s.currentId.Add(1))
 
 	ch := make(chan Response)
 

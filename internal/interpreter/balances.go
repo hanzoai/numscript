@@ -1,6 +1,7 @@
 package interpreter
 
 import (
+	"maps"
 	"math/big"
 	"strings"
 
@@ -76,9 +77,7 @@ func (b Balances) Merge(update Balances) {
 			return AccountBalance{}
 		})
 
-		for curr, amt := range accBalances {
-			cachedAcc[curr] = amt
-		}
+		maps.Copy(cachedAcc, accBalances)
 	}
 }
 

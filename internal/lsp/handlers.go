@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"slices"
+	"strings"
 
 	"github.com/formancehq/numscript/internal/analysis"
 	"github.com/formancehq/numscript/internal/jsonrpc2"
@@ -81,26 +82,28 @@ func (state *State) handleHover(params protocol.HoverParams) *protocol.Hover {
 		var msg string
 		switch resolved := resolved.(type) {
 		case analysis.StatementFnCallResolution:
-			params := "("
+			var params strings.Builder
+			params.WriteString("(")
 			for index, arg := range resolved.Params {
 				if index != 0 {
-					params += ", "
+					params.WriteString(", ")
 				}
-				params += arg
+				params.WriteString(arg)
 			}
-			params += ")"
-			msg = fmt.Sprintf("`%s%s`\n\n%s", hoverable.Node.Caller.Name, params, resolved.Docs)
+			params.WriteString(")")
+			msg = fmt.Sprintf("`%s%s`\n\n%s", hoverable.Node.Caller.Name, params.String(), resolved.Docs)
 		case analysis.VarOriginFnCallResolution:
-			params := "("
+			var params strings.Builder
+			params.WriteString("(")
 			for index, arg := range resolved.Params {
 				if index != 0 {
-					params += ", "
+					params.WriteString(", ")
 				}
-				params += arg
+				params.WriteString(arg)
 			}
-			params += ")"
+			params.WriteString(")")
 
-			msg = fmt.Sprintf("`%s%s -> %s`\n\n%s", hoverable.Node.Caller.Name, params, resolved.Return, resolved.Docs)
+			msg = fmt.Sprintf("`%s%s -> %s`\n\n%s", hoverable.Node.Caller.Name, params.String(), resolved.Return, resolved.Docs)
 		default:
 			utils.NonExhaustiveMatchPanic[any](resolved)
 		}

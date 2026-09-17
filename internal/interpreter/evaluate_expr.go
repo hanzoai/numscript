@@ -46,12 +46,12 @@ func (st *programState) evaluateExpr(expr parser.ValueExpr) (Value, InterpreterE
 	case *parser.NumberLiteral:
 		return MonetaryInt(*expr.Number), nil
 	case *parser.MonetaryLiteral:
-		asset, err := evaluateExprAs(st, expr.Asset, expectAsset)
+		asset, err := st.evaluateExprAs(expr.Asset, expectAsset)
 		if err != nil {
 			return nil, err
 		}
 
-		amount, err := evaluateExprAs(st, expr.Amount, expectNumber)
+		amount, err := st.evaluateExprAs(expr.Amount, expectNumber)
 		if err != nil {
 			return nil, err
 		}
@@ -110,14 +110,14 @@ func (st *programState) evaluateExpr(expr parser.ValueExpr) (Value, InterpreterE
 	}
 }
 
-func evaluateOptExprAs[T any](st *programState, expr parser.ValueExpr, expect func(Value, parser.Range) (*T, InterpreterError)) (*T, InterpreterError) {
+func (st *programState) evaluateOptExprAs[T any](expr parser.ValueExpr, expect func(Value, parser.Range) (*T, InterpreterError)) (*T, InterpreterError) {
 	if expr == nil {
 		return nil, nil
 	}
-	return evaluateExprAs(st, expr, expect)
+	return st.evaluateExprAs(expr, expect)
 }
 
-func evaluateExprAs[T any](st *programState, expr parser.ValueExpr, expect func(Value, parser.Range) (*T, InterpreterError)) (*T, InterpreterError) {
+func (st *programState) evaluateExprAs[T any](expr parser.ValueExpr, expect func(Value, parser.Range) (*T, InterpreterError)) (*T, InterpreterError) {
 	value, err := st.evaluateExpr(expr)
 	if err != nil {
 		return nil, err
@@ -144,7 +144,7 @@ func (st *programState) evaluateExpressions(literals []parser.ValueExpr) ([]Valu
 }
 
 func (s *programState) evaluateColor(colorExpr parser.ValueExpr) (*string, InterpreterError) {
-	color, err := evaluateOptExprAs(s, colorExpr, expectString)
+	color, err := s.evaluateOptExprAs(colorExpr, expectString)
 	if err != nil {
 		return nil, err
 	}
@@ -165,7 +165,7 @@ func (s *programState) evaluateColor(colorExpr parser.ValueExpr) (*string, Inter
 }
 
 func (st *programState) plusOp(left parser.ValueExpr, right parser.ValueExpr) (Value, InterpreterError) {
-	leftValue, err := evaluateExprAs(st, left, expectOneOf(
+	leftValue, err := st.evaluateExprAs(left, expectOneOf(
 		expectMapped(expectMonetary, func(m Monetary) opAdd {
 			return m
 		}),
@@ -184,7 +184,7 @@ func (st *programState) plusOp(left parser.ValueExpr, right parser.ValueExpr) (V
 }
 
 func (st *programState) subOp(left parser.ValueExpr, right parser.ValueExpr) (Value, InterpreterError) {
-	leftValue, err := evaluateExprAs(st, left, expectOneOf(
+	leftValue, err := st.evaluateExprAs(left, expectOneOf(
 		expectMapped(expectMonetary, func(m Monetary) opSub {
 			return m
 		}),
@@ -201,12 +201,12 @@ func (st *programState) subOp(left parser.ValueExpr, right parser.ValueExpr) (Va
 }
 
 func (st *programState) divOp(rng parser.Range, left parser.ValueExpr, right parser.ValueExpr) (Value, InterpreterError) {
-	leftValue, err := evaluateExprAs(st, left, expectNumber)
+	leftValue, err := st.evaluateExprAs(left, expectNumber)
 	if err != nil {
 		return nil, err
 	}
 
-	rightValue, err := evaluateExprAs(st, right, expectNumber)
+	rightValue, err := st.evaluateExprAs(right, expectNumber)
 	if err != nil {
 		return nil, err
 	}
@@ -224,7 +224,7 @@ func (st *programState) divOp(rng parser.Range, left parser.ValueExpr, right par
 }
 
 func (st *programState) unaryNegOp(expr parser.ValueExpr) (Value, InterpreterError) {
-	evExpr, err := evaluateExprAs(st, expr, expectOneOf(
+	evExpr, err := st.evaluateExprAs(expr, expectOneOf(
 		expectMapped(expectMonetary, func(m Monetary) opNeg {
 			return m
 		}),

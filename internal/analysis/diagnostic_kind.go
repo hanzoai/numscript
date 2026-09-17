@@ -3,6 +3,7 @@ package analysis
 import (
 	"fmt"
 	"math/big"
+	"strings"
 
 	"github.com/formancehq/numscript/internal/ansi"
 	"github.com/formancehq/numscript/internal/parser"
@@ -76,15 +77,15 @@ type InvalidType struct {
 
 // TODO evaluate suggestion using Levenshtein distance
 func (e InvalidType) Message() string {
-	allowedTypeList := ""
+	var allowedTypeList strings.Builder
 	for index, t := range AllowedTypes {
 		if index != 0 {
-			allowedTypeList += ", "
+			allowedTypeList.WriteString(", ")
 		}
-		allowedTypeList += t
+		allowedTypeList.WriteString(t)
 	}
 
-	return fmt.Sprintf("'%s' is not a valid type. Allowed types are: %s", e.Name, allowedTypeList)
+	return fmt.Sprintf("'%s' is not a valid type. Allowed types are: %s", e.Name, allowedTypeList.String())
 }
 
 func (InvalidType) Severity() Severity {

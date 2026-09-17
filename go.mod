@@ -1,6 +1,6 @@
 module github.com/formancehq/numscript
 
-go 1.26.5
+go 1.27.1
 
 require (
 	github.com/antlr4-go/antlr/v4 v4.13.1
@@ -10,6 +10,7 @@ require (
 	github.com/sergi/go-diff v1.4.0
 	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.11.1
+	go.lsp.dev/protocol v0.12.0
 )
 
 require (
@@ -39,7 +40,6 @@ require (
 	github.com/yosida95/uritemplate/v3 v3.0.2 // indirect
 	go.lsp.dev/jsonrpc2 v0.10.0 // indirect
 	go.lsp.dev/pkg v0.0.0-20210717090340-384b27a52fb2 // indirect
-	go.lsp.dev/protocol v0.12.0
 	go.lsp.dev/uri v0.3.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.1 // indirect

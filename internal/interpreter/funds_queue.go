@@ -2,6 +2,7 @@ package interpreter
 
 import (
 	"math/big"
+	"slices"
 )
 
 type Sender struct {
@@ -45,10 +46,9 @@ func (s *queue[T]) getLastCell() *queue[T] {
 
 func fromSlice[T any](slice []T) *queue[T] {
 	var ret *queue[T]
-	// TODO use https://pkg.go.dev/slices#Backward in golang 1.23
-	for i := len(slice) - 1; i >= 0; i-- {
+	for _, s := range slices.Backward(slice) {
 		ret = &queue[T]{
-			Head: slice[i],
+			Head: s,
 			Tail: ret,
 		}
 	}

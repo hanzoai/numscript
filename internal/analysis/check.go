@@ -1,6 +1,7 @@
 package analysis
 
 import (
+	"maps"
 	"math/big"
 	"slices"
 	"strings"
@@ -961,9 +962,7 @@ func (res *CheckResult) checkHasBadAllotmentSum(
 func (res *CheckResult) withCloneEmptyAccount() func() {
 	initial := res.emptiedAccount
 	res.emptiedAccount = make(map[string]struct{})
-	for k, v := range initial {
-		res.emptiedAccount[k] = v
-	}
+	maps.Copy(res.emptiedAccount, initial)
 	return func() {
 		res.emptiedAccount = initial
 	}

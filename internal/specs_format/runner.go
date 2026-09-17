@@ -215,8 +215,8 @@ func ShowDiff(w io.Writer, expected_ any, got_ any) {
 	diffs = dmp.DiffCharsToLines(diffs, lineArray)
 
 	for _, diff := range diffs {
-		lines := strings.Split(diff.Text, "\n")
-		for _, line := range lines {
+		lines := strings.SplitSeq(diff.Text, "\n")
+		for line := range lines {
 			if line == "" {
 				continue
 			}

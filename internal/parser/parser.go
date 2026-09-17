@@ -31,7 +31,7 @@ type ErrorListener struct {
 	Errors []ParserError
 }
 
-func (l *ErrorListener) SyntaxError(recognizer antlr.Recognizer, offendingSymbol interface{}, startL, startC int, msg string, e antlr.RecognitionException) {
+func (l *ErrorListener) SyntaxError(recognizer antlr.Recognizer, offendingSymbol any, startL, startC int, msg string, e antlr.RecognitionException) {
 	length := 1
 	if token, ok := offendingSymbol.(antlr.Token); ok {
 		length = len(token.GetText())
@@ -39,11 +39,9 @@ func (l *ErrorListener) SyntaxError(recognizer antlr.Recognizer, offendingSymbol
 	endL := startL
 	endC := startC + length - 1 // -1 so that end character is inside the offending token
 	l.Errors = append(l.Errors, ParserError{
-		Msg: msg,
-		Range: Range{
-			Start: Position{Character: startC, Line: startL - 1},
-			End:   Position{Character: endC, Line: endL - 1},
-		},
+		Msg:   msg,
+		Start: Position{Character: startC, Line: startL - 1},
+		End:   Position{Character: endC, Line: endL - 1},
 	})
 }
 
@@ -81,11 +79,12 @@ func Parse(input string) ParseResult {
 }
 
 func ParseErrorsToString(errors []ParserError, source string) string {
-	buf := "Got errors while parsing:\n"
+	var buf strings.Builder
+	buf.WriteString("Got errors while parsing:\n")
 	for _, err := range errors {
-		buf += err.Msg + "\n" + err.ShowOnSource(source) + "\n"
+		buf.WriteString(err.Msg + "\n" + err.ShowOnSource(source) + "\n")
 	}
-	return buf
+	return buf.String()
 }
 
 func parseVarsDeclaration(varsCtx antlrParser.IVarsDeclarationContext) *VarDeclarations {
@@ -570,7 +569,7 @@ func parseSaveStatement(saveCtx *antlrParser.SaveStatementContext) *SaveStatemen
 	return &SaveStatement{
 		Range:     ctxToRange(saveCtx),
 		SentValue: parseSentValue(saveCtx.SentValue()),
-		Account:    parseValueExpr(saveCtx.ValueExpr()),
+		Account:   parseValueExpr(saveCtx.ValueExpr()),
 	}
 }
 
